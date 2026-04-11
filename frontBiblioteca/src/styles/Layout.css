@@ -1,0 +1,332 @@
+/* --- ESTILOS DEL NAVBAR --- */
+.main-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 5%;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 1.5rem;
+}
+
+.nav-logo {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #2c3e50;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #4a5568;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+    color: #3498db;
+}
+
+.nav-user-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.logout-btn {
+    background-color: transparent;
+    border: 1px solid #e2e8f0;
+    color: #4a5568;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e0;
+    color: #e53e3e;
+}
+
+/* --- ESTILOS DEL HOME --- */
+.home-container {
+    padding: 3rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.home-header {
+    margin-bottom: 3rem;
+}
+
+.home-header h1 {
+    font-size: 2.2rem;
+    color: #2d3748;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.home-header p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+.home-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 4rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.8rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border: 1px solid #edf2f7;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+.stat-card h3 {
+    color: #a0aec0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.stat-number {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #3498db;
+}
+
+.recent-activity {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    border: 1px solid #edf2f7;
+}
+
+.recent-activity h2 {
+    font-size: 1.3rem;
+    color: #2d3748;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f8fafc;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.activity-item span {
+    font-size: 1.5rem;
+    margin-right: 18px;
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.activity-item p {
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+.activity-item strong {
+    color: #2d3748;
+}
+
+.activity-date {
+    margin-left: auto;
+    color: #a0aec0 !important;
+    font-size: 0.85rem !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+/* --- ESTILOS DEL PERFIL --- */
+.profile-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-card {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.profile-group {
+    margin-bottom: 20px;
+}
+
+.profile-label {
+    display: block;
+    font-weight: 700;
+    color: #4a5568;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.profile-value {
+    font-size: 1.1rem;
+    padding: 14px;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #edf2f7;
+    color: #2d3748;
+}
+
+.profile-input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1.5px solid #e2e8f0;
+    font-size: 1rem;
+    color: #2d3748;
+    background: #fff;
+    transition: all 0.2s ease;
+}
+
+.profile-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+.profile-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* --- BOTONES SECUNDARIOS Y DE CANCELAR --- */
+.btn-secondary {
+    padding: 10px 20px;
+    background-color: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #2d3748;
+    transform: translateY(-1px);
+}
+
+.btn-cancel {
+    flex: 1;
+    padding: 14px;
+    background-color: #edf2f7;
+    color: #4a5568;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
+
+.btn-save {
+    flex: 1;
+    margin-top: 0;
+}
+
+/* --- MENSAJES DE ESTADO Y CARGA --- */
+.success-msg {
+    background-color: #e6fffa;
+    color: #2c7a7b;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border-left: 4px solid #38b2ac;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+.loading-container {
+    padding: 80px 20px;
+    text-align: center;
+    color: #718096;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* --- RESPONSIVIDAD DEL NAVBAR --- */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; 
+    }
+    
+    .user-avatar {
+        display: none;
+    }
+    
+    .profile-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}

@@ -1,0 +1,217 @@
+/* --- RESETEO GLOBAL Y PANTALLA COMPLETA --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body, #root {
+    width: 100%;
+    min-height: 100%;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8fafc;
+}
+
+/* --- CONTENEDOR PRINCIPAL (WELCOME VIEW) --- */
+.welcome-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- PANEL IZQUIERDO: VISUAL --- */
+.welcome-info {
+    flex: 1.2;
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.9), rgba(52, 152, 219, 0.8)), 
+                url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 60px;
+    text-align: center;
+}
+
+.welcome-info h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.welcome-info p {
+    font-size: 1.2rem;
+    max-width: 500px;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* --- PANEL DERECHO: FORMULARIOS --- */
+.auth-wrapper {
+    width: 480px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 60px;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.08);
+    z-index: 10;
+    overflow-y: auto; /* Por si las pantallas son pequeñas */
+}
+
+.auth-header {
+    margin-bottom: 30px;
+}
+
+.auth-header h2 {
+    font-size: 2rem;
+    color: #1a202c;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+    color: #718096;
+    font-size: 0.95rem;
+}
+
+/* --- BARRA DE PROGRESO --- */
+.form-progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #edf2f7;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #3498db;
+    transition: width 0.4s ease-in-out;
+}
+
+/* --- ESTILOS DE FORMULARIO --- */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 6px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    background: #f8fafc;
+    color: #2d3748;
+}
+
+.form-group input::placeholder {
+    color: #a0aec0;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+/* --- BOTONES --- */
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(41, 128, 185, 0.2);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* --- ALTERNAR LOGIN/REGISTRO --- */
+.auth-toggle {
+    margin-top: 35px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #718096;
+    padding-top: 20px;
+    border-top: 1px solid #edf2f7;
+}
+
+.auth-toggle button {
+    background: none;
+    border: none;
+    color: #3498db;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 6px;
+    transition: color 0.2s;
+}
+
+.auth-toggle button:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* --- MENSAJES DE ERROR --- */
+.error-msg {
+    background-color: #fff5f5;
+    color: #c53030;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border-left: 4px solid #e53e3e;
+    font-size: 0.85rem;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVIDAD --- */
+@media (max-width: 1024px) {
+    .auth-wrapper {
+        width: 420px;
+        padding: 0 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-info {
+        display: none;
+    }
+    .auth-wrapper {
+        width: 100%;
+        padding: 40px 30px;
+    }
+}
