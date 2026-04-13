@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./biblioteca_comenta
+    ports:
+      - "8080:8080" # Expone el puerto 8080 al exterior
+    environment:
+      - APP_CORS_ALLOWED_ORIGINS=http://localhost:3000 
+    volumes:
+      - ./biblioteca_comenta/data:/app/data
+    networks:
+      - mi-red
+
+  frontend:
+    build: ./frontBiblioteca
+    ports:
+      - "3000:80" # Expone Nginx (puerto 80) hacia tu puerto 3000 local
+    depends_on:
+      - backend   # Asegura que el back inicie antes que el front
+    networks:
+      - mi-red
+
+networks:
+  mi-red:
+    driver: bridge

@@ -12,7 +12,7 @@ const HomeView = () => {
             if (savedData && savedData.id) {
                 try {
                     // Consultamos a la base de datos usando el ID
-                    const response = await api.get(`/${savedData.id}`);
+                    const response = await api.get(`/usuario/${savedData.id}`);
                     setUser(response.data);
                 } catch (error) {
                     console.error("Error al obtener datos en el Home", error);
