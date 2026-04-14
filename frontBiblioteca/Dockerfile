@@ -8,7 +8,10 @@ RUN npm run build
 
 # Etapa 2: Servidor Web (Nginx)
 FROM nginx:alpine
-# Si usas Create React App, la carpeta suele ser "build". Si usas Vite, suele ser "dist".
+
+#le decimos al index que existen mas vistas
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf 
 # Asegúrate de poner la correcta abajo:
 COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
