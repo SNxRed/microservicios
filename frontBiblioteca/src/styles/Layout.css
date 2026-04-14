@@ -107,19 +107,19 @@
 
 .home-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-    margin-bottom: 4rem;
+    /* auto-fit hace que las columnas se expandan para llenar el espacio vacío */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 2rem;
 }
 
 .stat-card {
-    background: white;
-    padding: 1.8rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    border: 1px solid #edf2f7;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%; /* Se adapta al tamaño de su celda en el grid */
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .stat-card:hover {

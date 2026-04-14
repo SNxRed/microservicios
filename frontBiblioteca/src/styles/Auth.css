@@ -7,9 +7,23 @@
 
 html, body, #root {
     width: 100%;
-    min-height: 100%;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /*font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;*/
+    flex-direction: column;
     background-color: #f8fafc;
+}
+
+.home-container {
+    flex: 1; /* Esto empuja el footer hacia abajo si lo tuvieras */
+    width: 100%;
+    max-width: 100%; /* Eliminamos el max-width fijo para que sea dinámico */
+    padding: 2rem 5%; /* Mantiene un respiro lateral proporcional */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 /* --- CONTENEDOR PRINCIPAL (WELCOME VIEW) --- */

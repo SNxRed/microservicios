@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# ... otras reglas
+.env
+.env.local
+.env.production
