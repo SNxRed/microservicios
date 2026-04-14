@@ -70,7 +70,7 @@ const PerfilView = () => {
     }
 
     return (
-        <div className="home-container">
+        <div className="home-container center">
             <header className="home-header profile-header-flex">
                 <div>
                     <h1>Mi Perfil 👤</h1>

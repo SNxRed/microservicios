@@ -22,6 +22,7 @@ const Navbar = () => {
             {/* Aquí están los botones de navegación */}
             <div className="nav-links">
                 <Link to="/home" className="nav-item">Inicio</Link>
+                <Link to="/buscar" className='nav-item'>Buscar Libros</Link>
                 <Link to="/perfil" className="nav-item">Mi Perfil</Link>
             </div>
 
