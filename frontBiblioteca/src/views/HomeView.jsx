@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api/axios';
 import '../styles/Layout.css';
-
+import.meta.env
 const HomeView = () => {
     const [user, setUser] = useState({ nombre: 'Usuario' });
     const [query, setQuery] = useState(''); // Estado para el texto de búsqueda
@@ -10,7 +10,7 @@ const HomeView = () => {
 
     // API Key que proporcionaste (¡Recuerda protegerla luego en un .env!)
     const GOOGLE_BOOKS_API = "https://www.googleapis.com/books/v1/volumes";
-    const API_KEY = "AIzaSyD_TUlNXJL8mu6vzLSrKCoj_7qSiU_ZbM8";
+    const API_KEY = import.meta.env.VITE_GOOGLE_BOOKS_KEY;
 
     useEffect(() => {
         const fetchUserData = async () => {
