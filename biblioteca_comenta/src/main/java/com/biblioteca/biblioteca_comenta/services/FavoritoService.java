@@ -24,4 +24,11 @@ public class FavoritoService {
     public List<FavoritoModel> obtenerFavoritosPorUsuario(Long usuarioId) {
         return favoritoRepository.findByUsuarioId(usuarioId);
     }
+
+    public void eliminarFavorito(Long id) {
+    if (!favoritoRepository.existsById(id)) {
+        throw new RuntimeException("El favorito no existe");
+    }
+    favoritoRepository.deleteById(id);
+}
 }
