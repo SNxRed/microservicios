@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../api/axios';
 import '../styles/Layout.css';
+import '../styles/BuscarLibros.css'; // Importación del nuevo CSS
 
 const BuscarLibrosView = () => {
     const [query, setQuery] = useState('');
@@ -19,11 +20,13 @@ const BuscarLibrosView = () => {
         setLoading(true);
         setMensaje({ texto: '', tipo: '' });
         try {
+            // Buscamos específicamente por título para mejores resultados
             const response = await fetch(`${GOOGLE_BOOKS_API}?q=intitle:${valorABuscar}&key=${API_KEY}`);
             const data = await response.json();
             setLibros(data.items || []);
         } catch (error) {
             console.error("Error buscando libros:", error);
+            setMensaje({ texto: 'Error de conexión con la API', tipo: 'error' });
         } finally {
             setLoading(false);
         }
@@ -60,13 +63,13 @@ const BuscarLibrosView = () => {
             </header>
 
             {mensaje.texto && (
-                <div className={mensaje.tipo === 'success' ? 'success-msg' : 'error-msg'}>
+                <div className={`feedback-msg ${mensaje.tipo === 'success' ? 'success-msg' : 'error-msg'}`}>
                     {mensaje.texto}
                 </div>
             )}
 
-            <section className="search-section" style={{ marginBottom: '2rem' }}>
-                <form onSubmit={buscarLibros} style={{ display: 'flex', gap: '10px' }}>
+            <section className="search-container">
+                <form onSubmit={buscarLibros} className="search-form-group">
                     <input 
                         type="text" 
                         placeholder="Escribe el título de un libro..." 
@@ -74,32 +77,49 @@ const BuscarLibrosView = () => {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
-                    <button type="submit" className="btn-primary" style={{ width: 'auto' }}>
+                    <button type="submit" className="btn-primary btn-inline" disabled={loading}>
                         {loading ? 'Buscando...' : 'Buscar'}
                     </button>
                 </form>
             </section>
 
             <div className="recent-activity">
-                <h2>{libros.length > 0 ? "Resultados" : "Resultados de búsqueda"}</h2>
-                <div className="activity-list">
+                <h2 className="favorites-title">
+                    {libros.length > 0 ? `Resultados (${libros.length})` : "Resultados de búsqueda"}
+                </h2>
+                
+                <div className="results-grid">
                     {libros.map((item) => (
-                        <div key={item.id} className="activity-item">
-                            {item.volumeInfo.imageLinks?.thumbnail && (
-                                <img src={item.volumeInfo.imageLinks.thumbnail} alt="portada" style={{ width: '45px', borderRadius: '4px', marginRight: '15px' }} />
+                        <div key={item.id} className="book-card">
+                            {item.volumeInfo.imageLinks?.thumbnail ? (
+                                <img src={item.volumeInfo.imageLinks.thumbnail} alt="portada" className="book-thumb" />
+                            ) : (
+                                <div className="fav-placeholder book-thumb"></div>
                             )}
-                            <div style={{ flex: 1 }}>
-                                <p><strong>{item.volumeInfo.title}</strong></p>
-                                <p style={{ fontSize: '0.8rem', color: '#718096' }}>
+                            
+                            <div className="book-info">
+                                <strong>{item.volumeInfo.title}</strong>
+                                <span className="book-author">
                                     {item.volumeInfo.authors?.join(', ') || 'Autor desconocido'}
-                                </p>
+                                </span>
                             </div>
-                            <button onClick={() => agregarAFavoritos(item)} className="btn-secondary" style={{ padding: '8px 12px', fontSize: '0.8rem' }}>
-                                ⭐ Favorito
+
+                            <button 
+                                onClick={() => agregarAFavoritos(item)} 
+                                className="btn-fav"
+                                title="Agregar a favoritos"
+                            >
+                                ⭐
                             </button>
                         </div>
                     ))}
                 </div>
+
+                {libros.length === 0 && !loading && (
+                    <div className="empty-state">
+                        <p>Usa el buscador para explorar miles de libros de Google Books.</p>
+                    </div>
+                )}
             </div>
         </div>
     );

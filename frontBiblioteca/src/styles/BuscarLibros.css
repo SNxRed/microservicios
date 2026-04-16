@@ -1,0 +1,103 @@
+/* Contenedor de búsqueda */
+.search-container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
+}
+
+.search-form-group {
+    display: flex;
+    gap: 12px;
+}
+
+/* Grid de Resultados */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Card de Libro Individual */
+.book-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #edf2f7;
+    transition: all 0.2s ease;
+}
+
+.book-card:hover {
+    border-color: #3498db;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.1);
+}
+
+.book-thumb {
+    width: 60px;
+    height: 90px;
+    border-radius: 6px;
+    margin-right: 15px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.book-info strong {
+    font-size: 1rem;
+    color: #2d3748;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.book-author {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-top: 5px;
+}
+
+/* Botón Favorito */
+.btn-fav {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: #4a5568;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.btn-fav:hover {
+    background-color: #fffaf0;
+    border-color: #f6ad55;
+    color: #dd6b20;
+}
+
+/* Mensajes de feedback (reutilizando lógica anterior) */
+.feedback-msg {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-align: center;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

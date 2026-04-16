@@ -1,0 +1,174 @@
+/* Layout Principal del Perfil */
+.profile-layout {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+/* Columna Izquierda (Datos) */
+.profile-sidebar {
+    flex: 1;
+    min-width: 300px;
+}
+
+.profile-card {
+    height: 100%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.profile-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-card-header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #2d3748;
+}
+
+/* Visualización de Datos */
+.profile-group {
+    margin-bottom: 15px;
+}
+
+.profile-label {
+    display: block;
+    color: #718096;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 4px 0 0 0;
+}
+
+/* Columna Derecha (Favoritos) */
+.profile-main {
+    flex: 2;
+    min-width: 400px;
+}
+
+.favorites-title {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #2d3748;
+}
+
+/* Items de la lista de favoritos */
+.fav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #edf2f7;
+    transition: transform 0.2s;
+}
+
+.fav-item:hover {
+    transform: translateX(5px);
+}
+
+.fav-cover {
+    width: 45px;
+    height: 65px;
+    border-radius: 4px;
+    margin-right: 15px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.fav-placeholder {
+    width: 45px;
+    height: 65px;
+    background-color: #edf2f7;
+    margin-right: 15px;
+    border-radius: 4px;
+}
+
+.fav-info {
+    flex: 1;
+}
+
+.fav-title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.fav-author {
+    margin: 2px 0 0 0;
+    font-size: 0.8rem;
+    color: #718096;
+}
+
+/* Botón Quitar */
+.btn-remove {
+    background-color: #fff5f5;
+    color: #e53e3e;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    border: 1px solid #feb2b2;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-remove:hover {
+    background-color: #e53e3e;
+    color: white;
+}
+
+/* Mensajes de estado */
+.error-msg {
+    background-color: #fff5f5;
+    color: #c53030;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border-left: 4px solid #c53030;
+}
+
+.success-msg {
+    background-color: #f0fff4;
+    color: #2f855a;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    border-left: 4px solid #2f855a;
+}
+
+/* Utilidades de Formulario y Botones */
+.edit-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-small {
+    padding: 4px 10px !important;
+    font-size: 0.8rem !important;
+    width: auto !important;
+}
+
+.empty-state {
+    text-align: center;
+    color: #a0aec0;
+    padding: 40px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 2px dashed #edf2f7;
+}
