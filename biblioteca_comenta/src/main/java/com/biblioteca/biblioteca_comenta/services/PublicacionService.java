@@ -36,4 +36,9 @@ public class PublicacionService {
             return comentarioRepository.save(comentario);
         }).orElseThrow(() -> new RuntimeException("Publicación no encontrada"));
     }
+
+    // Añadir este método a la clase PublicacionService
+    public List<PublicacionModel> obtenerPorUsuario(Long usuarioId) {
+        return publicacionRepository.findByUsuarioId(usuarioId);
+    }
 }

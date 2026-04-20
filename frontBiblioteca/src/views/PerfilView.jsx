@@ -1,158 +1,187 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
 import '../styles/Layout.css';
-import '../styles/Perfil.css'; // Importación del nuevo CSS
+import '../styles/Perfil.css';
+import '../styles/Home.css'; // Reutilizamos estilos del muro para las publicaciones
 
 const PerfilView = () => {
-    const [user, setUser] = useState(null);
-    const [favoritos, setFavoritos] = useState([]);
-    const [isEditing, setIsEditing] = useState(false);
-    const [editData, setEditData] = useState({ nombre: '', mail: '', password: '' });
-    const [error, setError] = useState('');
-    const [successMsg, setSuccessMsg] = useState('');
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+    const [editMode, setEditMode] = useState(false);
+    const [formData, setFormData] = useState({ 
+        nombre: user.nombre, 
+        mail: user.mail, 
+        password: '' 
+    });
+    const [favorites, setFavorites] = useState([]);
+    const [misPublicaciones, setMisPublicaciones] = useState([]); // Estado para las publicaciones
+    const [mensaje, setMensaje] = useState({ texto: '', tipo: '' });
 
     useEffect(() => {
-        const fetchData = async () => {
-            const localUser = JSON.parse(localStorage.getItem('user'));
-            if (localUser && localUser.id) {
-                try {
-                    const userResponse = await api.get(`/usuario/${localUser.id}`);
-                    setUser(userResponse.data);
-                    setEditData({ 
-                        nombre: userResponse.data.nombre, 
-                        mail: userResponse.data.mail, 
-                        password: '' 
-                    });
-                    
-                    const favResponse = await api.get(`/favoritos/usuario/${localUser.id}`);
-                    setFavoritos(favResponse.data);
-                } catch (error) {
-                    console.error("Error cargando perfil:", error);
-                    setUser(localUser); 
-                }
-            }
-        };
-        fetchData();
+        cargarDatosPerfil();
     }, []);
 
-    const handleChange = (e) => {
-        setEditData({ ...editData, [e.target.name]: e.target.value });
-    };
-
-    const handleSave = async (e) => {
-        e.preventDefault();
-        setError('');
-        setSuccessMsg('');
+    const cargarDatosPerfil = async () => {
         try {
-            const response = await api.put(`/usuario/${user.id}`, editData);
-            setUser(response.data);
-            localStorage.setItem('user', JSON.stringify(response.data));
-            setSuccessMsg("¡Perfil actualizado!");
-            setIsEditing(false);
-            setEditData({ ...editData, password: '' });
-            setTimeout(() => setSuccessMsg(''), 3000);
-        } catch (err) {
-            setError(err.response?.data?.message || "Error al actualizar.");
-        }
-    };
+            // Cargar Favoritos
+            const favRes = await api.get(`/favoritos/usuario/${user.id}`);
+            setFavorites(favRes.data);
 
-    const eliminarFavorito = async (favoritoId) => {
-        if (!window.confirm("¿Eliminar de favoritos?")) return;
-        try {
-            await api.delete(`/favoritos/${favoritoId}`);
-            setFavoritos(prev => prev.filter(fav => fav.id !== favoritoId));
-            setSuccessMsg("Eliminado correctamente");
-            setTimeout(() => setSuccessMsg(''), 3000);
+            // Cargar Publicaciones del Usuario
+            const pubRes = await api.get(`/publicaciones/usuario/${user.id}`);
+            setMisPublicaciones(pubRes.data);
         } catch (error) {
-            setError("Error al eliminar.");
+            console.error("Error al cargar datos del perfil:", error);
         }
     };
 
-    if (!user) return <div className="home-container">Cargando...</div>;
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await api.put(`/usuario/${user.id}`, formData);
+            const updatedUser = response.data;
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            setUser(updatedUser);
+            setEditMode(false);
+            setMensaje({ texto: "Perfil actualizado correctamente", tipo: 'success' });
+        } catch (error) {
+            setMensaje({ texto: error.response?.data?.message || "Error al actualizar", tipo: 'error' });
+        }
+    };
+
+    const eliminarFavorito = async (id) => {
+        try {
+            await api.delete(`/favoritos/${id}`);
+            setFavorites(favorites.filter(f => f.id !== id));
+        } catch (error) {
+            setMensaje({ texto: "No se pudo eliminar el favorito", tipo: 'error' });
+        }
+    };
 
     return (
         <div className="home-container">
             <header className="home-header">
-                <h1>Panel de Usuario 👤</h1>
-                <p>Gestiona tu información y biblioteca personal en un solo lugar.</p>
+                <h1>Mi Panel de Lector 📚</h1>
+                <p>Gestiona tu cuenta, tus libros favoritos y tus publicaciones.</p>
             </header>
 
-            {error && <div className="error-msg">{error}</div>}
-            {successMsg && <div className="success-msg">{successMsg}</div>}
+            {mensaje.texto && (
+                <div className={mensaje.tipo === 'success' ? 'success-msg' : 'error-msg'}>
+                    {mensaje.texto}
+                </div>
+            )}
 
             <div className="profile-layout">
-                
-                {/* COLUMNA IZQUIERDA: DATOS */}
-                <div className="profile-sidebar">
+                {/* Columna Izquierda: Datos del Usuario */}
+                <aside className="profile-sidebar">
                     <div className="profile-card">
                         <div className="profile-card-header">
-                            <h2>Datos Personales</h2>
-                            {!isEditing && (
-                                <button onClick={() => setIsEditing(true)} className="btn-secondary btn-small">
-                                    Editar
-                                </button>
+                            <h2>Mis Datos</h2>
+                            {!editMode && (
+                                <button onClick={() => setEditMode(true)} className="btn-primary btn-small">Editar</button>
                             )}
                         </div>
 
-                        {!isEditing ? (
+                        {!editMode ? (
                             <div className="profile-info-display">
                                 <div className="profile-group">
                                     <label className="profile-label">Nombre</label>
                                     <p className="profile-value">{user.nombre}</p>
                                 </div>
                                 <div className="profile-group">
-                                    <label className="profile-label">Email</label>
+                                    <label className="profile-label">Correo</label>
                                     <p className="profile-value">{user.mail}</p>
                                 </div>
                             </div>
                         ) : (
-                            <form onSubmit={handleSave} className="edit-form-group">
-                                <input type="text" name="nombre" value={editData.nombre} onChange={handleChange} required className="profile-input" placeholder="Nombre" />
-                                <input type="email" name="mail" value={editData.mail} onChange={handleChange} required className="profile-input" placeholder="Email" />
-                                <input type="password" name="password" value={editData.password} onChange={handleChange} className="profile-input" placeholder="Nueva contraseña (opcional)" />
-                                <div className="button-group">
-                                    <button type="submit" className="btn-primary btn-small">Guardar</button>
-                                    <button type="button" onClick={() => setIsEditing(false)} className="btn-cancel btn-small">X</button>
+                            <form onSubmit={handleUpdate} className="edit-form-group">
+                                <input 
+                                    className="profile-input"
+                                    value={formData.nombre}
+                                    onChange={e => setFormData({...formData, nombre: e.target.value})}
+                                    placeholder="Nombre"
+                                    required
+                                />
+                                <input 
+                                    className="profile-input"
+                                    type="email"
+                                    value={formData.mail}
+                                    onChange={e => setFormData({...formData, mail: e.target.value})}
+                                    placeholder="Correo"
+                                    required
+                                />
+                                <input 
+                                    className="profile-input"
+                                    type="password"
+                                    placeholder="Nueva contraseña (opcional)"
+                                    onChange={e => setFormData({...formData, password: e.target.value})}
+                                />
+                                <div className="profile-actions">
+                                    <button type="submit" className="btn-primary btn-save">Guardar</button>
+                                    <button type="button" onClick={() => setEditMode(false)} className="btn-cancel">Cancelar</button>
                                 </div>
                             </form>
                         )}
                     </div>
-                </div>
+                </aside>
 
-                {/* COLUMNA DERECHA: FAVORITOS */}
-                <div className="profile-main">
-                    <div className="profile-card">
-                        <h2 className="favorites-title">⭐ Mis Libros Favoritos ({favoritos.length})</h2>
-                        <div className="activity-list">
-                            {favoritos.length > 0 ? (
-                                favoritos.map((fav) => (
+                {/* Columna Derecha: Favoritos y Publicaciones */}
+                <main className="profile-main">
+                    <section className="favorites-section">
+                        <h2 className="favorites-title">Libros Favoritos ({favorites.length})</h2>
+                        {favorites.length > 0 ? (
+                            <div className="fav-list">
+                                {favorites.map(fav => (
                                     <div key={fav.id} className="fav-item">
-                                        {fav.imagenUrl ? (
-                                            <img src={fav.imagenUrl} alt="portada" className="fav-cover" />
-                                        ) : (
-                                            <div className="fav-placeholder"></div>
-                                        )}
+                                        <img src={fav.imagenUrl} alt="portada" className="fav-cover" />
                                         <div className="fav-info">
-                                            <p className="fav-title">{fav.titulo}</p>
+                                            <h3 className="fav-title">{fav.titulo}</h3>
                                             <p className="fav-author">{fav.autor}</p>
                                         </div>
-                                        <button 
-                                            onClick={() => eliminarFavorito(fav.id)} 
-                                            className="btn-remove"
-                                        >
-                                            Quitar
-                                        </button>
+                                        <button onClick={() => eliminarFavorito(fav.id)} className="btn-remove">Quitar</button>
                                     </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="empty-state">
+                                <p>Aún no tienes libros favoritos.</p>
+                            </div>
+                        )}
+                    </section>
+
+                    {/* Nueva Sección: Mis Publicaciones */}
+                    <section className="my-posts-section" style={{marginTop: '40px'}}>
+                        <h2 className="favorites-title">Mis Publicaciones ({misPublicaciones.length})</h2>
+                        <div className="feed-container">
+                            {misPublicaciones.length > 0 ? (
+                                misPublicaciones.map(pub => (
+                                    <article key={pub.id} className="post-card">
+                                        <div className="book-content-block">
+                                            {pub.imagenLibro && <img src={pub.imagenLibro} alt="portada" className="book-cover" />}
+                                            <div className="book-details">
+                                                <h3>{pub.tituloLibro}</h3>
+                                                <p className="user-comment-text">"{pub.textoPublicacion}"</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="comments-container">
+                                            <h4>Comentarios ({pub.comentarios?.length || 0})</h4>
+                                            {pub.comentarios?.map(com => (
+                                                <div key={com.id} className="comment-bubble">
+                                                    <strong className="comment-user">{com.usuario?.nombre || 'Usuario'}:</strong> 
+                                                    {com.texto}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </article>
                                 ))
                             ) : (
                                 <div className="empty-state">
-                                    <p>No tienes libros favoritos aún.</p>
+                                    <p>No has realizado ninguna publicación todavía.</p>
                                 </div>
                             )}
                         </div>
-                    </div>
-                </div>
-
+                    </section>
+                </main>
             </div>
         </div>
     );

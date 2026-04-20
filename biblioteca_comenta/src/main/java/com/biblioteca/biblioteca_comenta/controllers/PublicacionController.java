@@ -37,4 +37,12 @@ public class PublicacionController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    // Añadir este endpoint a la clase PublicacionController
+    @GetMapping("/usuario/{usuarioId}")
+    public List<PublicacionModel> obtenerPublicacionesUsuario(@PathVariable Long usuarioId) {
+        return publicacionService.obtenerPorUsuario(usuarioId);
+    }
+
+    
 }

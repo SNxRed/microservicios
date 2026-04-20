@@ -1,7 +1,6 @@
 package com.biblioteca.biblioteca_comenta.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +16,11 @@ public class ComentarioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombreUsuario; // Nombre de quien comenta
+    // Relación con el Usuario en lugar del nombre estático
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private UsuarioModel usuario; 
+
     private String texto;
 
     @ManyToOne
@@ -25,6 +28,7 @@ public class ComentarioModel {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PublicacionModel publicacion;
 
+    // Getters y Setters actualizados
     public Long getId() {
         return id;
     }
@@ -33,12 +37,12 @@ public class ComentarioModel {
         this.id = id;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public UsuarioModel getUsuario() {
+        return usuario;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setUsuario(UsuarioModel usuario) {
+        this.usuario = usuario;
     }
 
     public String getTexto() {
