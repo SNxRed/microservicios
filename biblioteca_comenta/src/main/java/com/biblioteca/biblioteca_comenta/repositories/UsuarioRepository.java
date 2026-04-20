@@ -12,6 +12,6 @@ import com.biblioteca.biblioteca_comenta.models.UsuarioModel;
 public interface UsuarioRepository extends JpaRepository<UsuarioModel, Long>{
     // public abstract ArrayList<UsuarioModel> findByuser(String mail, String password);
     boolean existsByMail(String mail); 
-    Optional<UsuarioModel> findByMailAndPassword(String mail, String password);
+    Optional<UsuarioModel> findByMail(String mail);
     Optional<UsuarioModel> findById(Long id);
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder; // IMPORTANTE
 import org.springframework.stereotype.Service;
 
 import com.biblioteca.biblioteca_comenta.models.UsuarioModel;
@@ -14,25 +15,36 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder; // Inyectamos el hasheador
+
     public ArrayList<UsuarioModel> obtenerUsuarios(){
         return (ArrayList<UsuarioModel>) usuarioRepository.findAll();
     }
 
-    public UsuarioModel guardarUsuario(UsuarioModel usuario){ // verifica si el usuario ya esta registrado
+    public UsuarioModel guardarUsuario(UsuarioModel usuario){ 
         if(usuarioRepository.existsByMail(usuario.getMail())){
             throw new RuntimeException("El Correo ya esta registrado");
         }
+        
+        // Hasheamos la contraseña antes de guardar en la BD
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }
 
     public UsuarioModel login(String mail, String password){
-        Optional<UsuarioModel> usuario = usuarioRepository.findByMailAndPassword(mail, password);
-        if(usuario.isPresent()){
-            return usuario.get();
-        }else{
-            throw new RuntimeException("Credenciales incorrectas");
+        // 1. Buscamos al usuario solo por su correo
+        Optional<UsuarioModel> usuarioOpt = usuarioRepository.findByMail(mail);
+        
+        if(usuarioOpt.isPresent()){
+            UsuarioModel usuario = usuarioOpt.get();
+            // 2. Comparamos la contraseña plana con el hash de la BD usando "matches"
+            if (passwordEncoder.matches(password, usuario.getPassword())) {
+                return usuario;
+            }
         }
-
+        // Si el correo no existe o la contraseña no hace "match", lanzamos error
+        throw new RuntimeException("Credenciales incorrectas");
     }
 
     public UsuarioModel obtenerUsuarioPorId(Long id) {
@@ -40,26 +52,21 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado en la base de datos"));
     }
 
-    // Nuevo método para actualizar datos del usuario
     public UsuarioModel actualizarUsuario(Long id, UsuarioModel usuarioActualizado) {
         return usuarioRepository.findById(id).map(usuario -> {
             
-            // 1. VALIDACIÓN ESTRICTA DE CORREO:
-            // Verificamos si el correo que envían es diferente al que ya tiene el usuario actualmente
             if (!usuario.getMail().equals(usuarioActualizado.getMail())) {
-                // Si es diferente, verificamos en la base de datos si alguien más ya lo está usando
                 if (usuarioRepository.existsByMail(usuarioActualizado.getMail())) {
                     throw new RuntimeException("El correo ingresado ya está en uso por otro usuario.");
                 }
             }
 
-            // 2. Si pasa la validación, actualizamos los datos
             usuario.setNombre(usuarioActualizado.getNombre());
             usuario.setMail(usuarioActualizado.getMail());
             
-            // Solo actualizamos la contraseña si el usuario escribió una nueva
             if (usuarioActualizado.getPassword() != null && !usuarioActualizado.getPassword().isEmpty()) {
-                usuario.setPassword(usuarioActualizado.getPassword());
+                // Si el usuario envía una contraseña nueva al actualizar, también la hasheamos
+                usuario.setPassword(passwordEncoder.encode(usuarioActualizado.getPassword()));
             }
 
             return usuarioRepository.save(usuario);
