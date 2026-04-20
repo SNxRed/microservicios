@@ -25,7 +25,6 @@ public class ComentarioModel {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private PublicacionModel publicacion;
 
-    // Getters y Setters para ComentarioModel
     public Long getId() {
         return id;
     }

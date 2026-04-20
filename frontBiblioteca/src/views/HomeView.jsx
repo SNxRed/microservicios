@@ -111,7 +111,7 @@ const HomeView = () => {
                     </div>
                 ) : (
                     <div className="search-results-mini">
-                        {resultados.slice(0, 3).map(libro => (
+                        {resultados.slice(0, 10).map(libro => (
                             <div key={libro.id} onClick={() => setLibroSeleccionado(libro)} className="search-item">
                                 <span>📖</span>
                                 <p><strong>{libro.volumeInfo.title}</strong> - <small>Click para seleccionar</small></p>

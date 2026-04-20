@@ -16,20 +16,20 @@ public class PublicacionController {
     @Autowired
     private PublicacionService publicacionService;
 
-    // GET: Muro Global
-    @GetMapping
+    
+    @GetMapping //Muro del Home
     public List<PublicacionModel> listarPublicaciones() {
         return publicacionService.obtenerTodas();
     }
 
-    // POST: Realizar una nueva publicación
-    @PostMapping
+    
+    @PostMapping //Realizar una nueva publicación
     public ResponseEntity<PublicacionModel> crearPublicacion(@RequestBody PublicacionModel publicacion) {
         return ResponseEntity.ok(publicacionService.guardarPublicacion(publicacion));
     }
 
-    // POST: Agregar comentario a una publicación específica
-    @PostMapping("/{id}/comentarios")
+    
+    @PostMapping("/{id}/comentarios") //Agregar comentario a una publicación específica
     public ResponseEntity<ComentarioModel> comentar(@PathVariable Long id, @RequestBody ComentarioModel comentario) {
         try {
             return ResponseEntity.ok(publicacionService.agregarComentario(id, comentario));

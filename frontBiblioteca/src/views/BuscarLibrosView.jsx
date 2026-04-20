@@ -21,7 +21,7 @@ const BuscarLibrosView = () => {
         setMensaje({ texto: '', tipo: '' });
         try {
             // Buscamos específicamente por título para mejores resultados
-            const response = await fetch(`${GOOGLE_BOOKS_API}?q=intitle:${valorABuscar}&key=${API_KEY}`);
+            const response = await fetch(`${GOOGLE_BOOKS_API}?q=${valorABuscar}&maxResults=30&key=${API_KEY}`);
             const data = await response.json();
             setLibros(data.items || []);
         } catch (error) {

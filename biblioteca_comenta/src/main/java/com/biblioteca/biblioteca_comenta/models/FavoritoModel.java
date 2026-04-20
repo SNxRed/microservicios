@@ -14,7 +14,6 @@ public class FavoritoModel {
     @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioModel usuario;
 
-    // Datos del libro de la API de Google
     private String googleBookId; // El 'id' que viene de la API de Google
     private String titulo;
     private String autor;
