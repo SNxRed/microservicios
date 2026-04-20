@@ -7,6 +7,12 @@ import com.biblioteca.biblioteca_comenta.repositories.PublicacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.biblioteca.biblioteca_comenta.repositories.ReaccionRepository;
+import com.biblioteca.biblioteca_comenta.repositories.UsuarioRepository;
+import com.biblioteca.biblioteca_comenta.models.ReaccionModel;
+import com.biblioteca.biblioteca_comenta.models.UsuarioModel;
+import java.util.Optional; // También necesario para el Optional<ReaccionModel>
+
 import java.util.List;
 
 @Service
@@ -17,6 +23,13 @@ public class PublicacionService {
 
     @Autowired
     private ComentarioRepository comentarioRepository;
+
+    // Importa estos repositorios arriba en tu clase:
+    @Autowired
+    private ReaccionRepository reaccionRepository;
+    
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     // Obtener todas las publicaciones para el muro global
     public List<PublicacionModel> obtenerTodas() {
@@ -40,5 +53,26 @@ public class PublicacionService {
     // Añadir este método a la clase PublicacionService
     public List<PublicacionModel> obtenerPorUsuario(Long usuarioId) {
         return publicacionRepository.findByUsuarioId(usuarioId);
+    }
+
+    // Agrega este nuevo método:
+    public void alternarReaccion(Long publicacionId, Long usuarioId) {
+        Optional<ReaccionModel> reaccionExistente = reaccionRepository.findByUsuarioIdAndPublicacionId(usuarioId, publicacionId);
+        
+        if (reaccionExistente.isPresent()) {
+            // Si ya existe la reacción, el usuario está quitando su "Me Gusta"
+            reaccionRepository.delete(reaccionExistente.get());
+        } else {
+            // Si no existe, creamos la nueva reacción
+            PublicacionModel pub = publicacionRepository.findById(publicacionId)
+                    .orElseThrow(() -> new RuntimeException("Publicación no encontrada"));
+            UsuarioModel usu = usuarioRepository.findById(usuarioId)
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+            ReaccionModel nuevaReaccion = new ReaccionModel();
+            nuevaReaccion.setPublicacion(pub);
+            nuevaReaccion.setUsuario(usu);
+            reaccionRepository.save(nuevaReaccion);
+        }
     }
 }

@@ -34,6 +34,9 @@ public class PublicacionModel {
     @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL)
     private List<ComentarioModel> comentarios; // Lista de respuestas
 
+    @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL)
+    private List<ReaccionModel> reacciones;
+
     // Getters y Setters para PublicacionModel
     public Long getId() {
         return id;
@@ -89,5 +92,13 @@ public class PublicacionModel {
 
     public void setComentarios(List<ComentarioModel> comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public List<ReaccionModel> getReacciones(){
+        return reacciones; 
+    }
+
+    public void setReacciones(List<ReaccionModel> reacciones) { 
+        this.reacciones = reacciones; 
     }
 }

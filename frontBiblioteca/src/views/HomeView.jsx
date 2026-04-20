@@ -9,7 +9,8 @@ const HomeView = () => {
     const [libroSeleccionado, setLibroSeleccionado] = useState(null);
     const [textoPublicacion, setTextoPublicacion] = useState('');
     const [comentarioTexto, setComentarioTexto] = useState({}); // { pubId: 'texto' }
-    
+    const [mensaje, setMensaje] = useState({ texto: '', tipo: '' });
+
     const user = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
@@ -19,6 +20,7 @@ const HomeView = () => {
     const cargarPublicaciones = async () => {
         try {
             const response = await api.get('/publicaciones');
+            // Nota: El ordenamiento DESC ya viene manejado desde el Backend
             setPublicaciones(response.data.reverse());
         } catch (error) {
             console.error("Error al cargar muro", error);
@@ -26,7 +28,6 @@ const HomeView = () => {
     };
 
     const buscarLibro = async (e) => {
-
         e.preventDefault();
         if (!busqueda.trim()) return;
         try {
@@ -56,6 +57,8 @@ const HomeView = () => {
             setTextoPublicacion('');
             setBusqueda('');
             setResultados([]);
+            setMensaje({ texto: '¡Publicación compartida!', tipo: 'success' });
+            setTimeout(() => setMensaje({ texto: '', tipo: '' }), 3000);
             cargarPublicaciones();
         } catch (error) {
             console.error("Error al publicar", error);
@@ -67,16 +70,26 @@ const HomeView = () => {
         if (!texto?.trim()) return;
 
         try {
-            // CAMBIO: Ahora enviamos el objeto usuario con su ID para mantener la relación
+            // Estructura actualizada: vinculamos el comentario al usuario por ID
             await api.post(`/publicaciones/${publicacionId}/comentarios`, {
                 usuario: { id: user.id }, 
                 texto: texto
             });
             
             setComentarioTexto({ ...comentarioTexto, [publicacionId]: '' });
-            cargarPublicaciones(); // Recargar para ver el nuevo comentario
+            cargarPublicaciones(); 
         } catch (error) {
             console.error("Error al comentar", error);
+        }
+    };
+
+    const handleReaccionar = async (publicacionId) => {
+        try {
+            // Endpoint para alternar (toggle) la reacción
+            await api.post(`/publicaciones/${publicacionId}/reacciones`, { id: user.id });
+            cargarPublicaciones(); 
+        } catch (error) {
+            console.error("Error al reaccionar", error);
         }
     };
 
@@ -86,6 +99,12 @@ const HomeView = () => {
                 <h1>Comunidad Bibliófila 📖</h1>
                 <p>Comparte tus lecturas y opiniones con otros lectores.</p>
             </header>
+
+            {mensaje.texto && (
+                <div className={`feedback-msg ${mensaje.tipo === 'success' ? 'success-msg' : 'error-msg'}`} style={{marginBottom: '20px'}}>
+                    {mensaje.texto}
+                </div>
+            )}
 
             {/* Sección para crear publicación */}
             <section className="publish-section">
@@ -123,7 +142,7 @@ const HomeView = () => {
                     </div>
                 )}
 
-                {/* ✅ CÓMO DEBE QUEDAR AHORA */}
+                {/* Resultados de búsqueda con imagen incluida */}
                 {resultados.length > 0 && !libroSeleccionado && (
                     <div className="search-results-mini">
                         {resultados.map(libro => (
@@ -133,23 +152,18 @@ const HomeView = () => {
                                 onClick={() => setLibroSeleccionado(libro)}
                                 style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
                             >
-                                {/* Renderizamos la imagen si existe, sino un cuadro gris de reemplazo */}
                                 {libro.volumeInfo.imageLinks?.thumbnail ? (
                                     <img 
                                         src={libro.volumeInfo.imageLinks.thumbnail} 
                                         alt="portada" 
-                                        style={{ width: '40px', height: '60px', objectFit: 'cover', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }} 
+                                        style={{ width: '35px', height: '50px', objectFit: 'cover', borderRadius: '4px' }} 
                                     />
                                 ) : (
-                                    <div style={{ width: '40px', height: '60px', backgroundColor: '#edf2f7', borderRadius: '4px' }}></div>
+                                    <div style={{ width: '35px', height: '50px', backgroundColor: '#edf2f7', borderRadius: '4px' }}></div>
                                 )}
-                                
-                                {/* Contenedor para el texto alineado verticalmente */}
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <div>
                                     <strong>{libro.volumeInfo.title}</strong>
-                                    <span style={{ fontSize: '0.85rem', color: '#718096', marginTop: '2px' }}>
-                                        {libro.volumeInfo.authors?.[0] || 'Autor desconocido'}
-                                    </span>
+                                    <p style={{fontSize: '0.8rem', color: '#718096', margin: 0}}>{libro.volumeInfo.authors?.[0]}</p>
                                 </div>
                             </div>
                         ))}
@@ -165,7 +179,7 @@ const HomeView = () => {
                             <div className="avatar">{pub.usuario.nombre.charAt(0).toUpperCase()}</div>
                             <div className="post-info">
                                 <strong>{pub.usuario.nombre}</strong>
-                                <span>Publicó una recomendación</span>
+                                <span>Recomendó un libro</span>
                             </div>
                         </div>
 
@@ -177,11 +191,26 @@ const HomeView = () => {
                             </div>
                         </div>
 
+                        {/* Botón de Reacción (Like) */}
+                        <div className="post-actions" style={{ display: 'flex', gap: '15px', padding: '10px 0', borderTop: '1px solid #edf2f7', marginTop: '15px' }}>
+                            <button 
+                                onClick={() => handleReaccionar(pub.id)}
+                                style={{ 
+                                    background: 'none', border: 'none', cursor: 'pointer', 
+                                    display: 'flex', alignItems: 'center', gap: '5px',
+                                    color: pub.reacciones?.some(r => r.usuario.id === user.id) ? '#e53e3e' : '#718096',
+                                    fontWeight: '600'
+                                }}
+                            >
+                                {pub.reacciones?.some(r => r.usuario.id === user.id) ? '❤️' : '🤍'} 
+                                {pub.reacciones?.length || 0}
+                            </button>
+                        </div>
+
                         <div className="comments-container">
                             <h4>Comentarios ({pub.comentarios?.length || 0})</h4>
                             {pub.comentarios?.map(com => (
                                 <div key={com.id} className="comment-bubble">
-                                    {/* CAMBIO: Ahora accedemos al nombre a través de la relación usuario */}
                                     <strong className="comment-user">{com.usuario?.nombre || 'Usuario'}:</strong> 
                                     {com.texto}
                                 </div>
