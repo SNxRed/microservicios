@@ -10,6 +10,10 @@ const HomeView = () => {
     const [textoPublicacion, setTextoPublicacion] = useState('');
     const [comentarioTexto, setComentarioTexto] = useState({}); // { pubId: 'texto' }
     const [mensaje, setMensaje] = useState({ texto: '', tipo: '' });
+    const [isSearching, setIsSearching] = useState(false);
+    
+    // NUEVO ESTADO: Controla qué publicaciones tienen sus comentarios expandidos
+    const [comentariosExpandidos, setComentariosExpandidos] = useState({});
 
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -20,7 +24,6 @@ const HomeView = () => {
     const cargarPublicaciones = async () => {
         try {
             const response = await api.get('/publicaciones');
-            // Nota: El ordenamiento DESC ya viene manejado desde el Backend
             setPublicaciones(response.data.reverse());
         } catch (error) {
             console.error("Error al cargar muro", error);
@@ -30,13 +33,19 @@ const HomeView = () => {
     const buscarLibro = async (e) => {
         e.preventDefault();
         if (!busqueda.trim()) return;
+
+        setIsSearching(true);
         try {
             const API_KEY = import.meta.env.VITE_GOOGLE_BOOKS_KEY;
-            const resp = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${busqueda}&maxResults=15&key=${API_KEY}`);
+            const url = `https://www.googleapis.com/books/v1/volumes?q=${busqueda}&maxResults=15&fields=items(id,volumeInfo(title,authors,imageLinks/thumbnail))&key=${API_KEY}`;
+            
+            const resp = await fetch(url);
             const data = await resp.json();
             setResultados(data.items || []);
         } catch (error) {
             console.error("Error API Google", error);
+        } finally {
+            setIsSearching(false);
         }
     };
 
@@ -70,7 +79,6 @@ const HomeView = () => {
         if (!texto?.trim()) return;
 
         try {
-            // Estructura actualizada: vinculamos el comentario al usuario por ID
             await api.post(`/publicaciones/${publicacionId}/comentarios`, {
                 usuario: { id: user.id }, 
                 texto: texto
@@ -85,12 +93,19 @@ const HomeView = () => {
 
     const handleReaccionar = async (publicacionId) => {
         try {
-            // Endpoint para alternar (toggle) la reacción
             await api.post(`/publicaciones/${publicacionId}/reacciones`, { id: user.id });
             cargarPublicaciones(); 
         } catch (error) {
             console.error("Error al reaccionar", error);
         }
+    };
+
+    // NUEVA FUNCIÓN: Alterna el estado de expansión de los comentarios
+    const toggleComentarios = (publicacionId) => {
+        setComentariosExpandidos(prev => ({
+            ...prev,
+            [publicacionId]: !prev[publicacionId]
+        }));
     };
 
     return (
@@ -106,7 +121,6 @@ const HomeView = () => {
                 </div>
             )}
 
-            {/* Sección para crear publicación */}
             <section className="publish-section">
                 <h2>¿Qué estás leyendo ahora?</h2>
                 {!libroSeleccionado ? (
@@ -118,7 +132,13 @@ const HomeView = () => {
                             onChange={(e) => setBusqueda(e.target.value)}
                             className="profile-input"
                         />
-                        <button type="submit" className="btn-primary btn-inline">Buscar</button>
+                        <button 
+                            type="submit" 
+                            className="btn-primary btn-inline" 
+                            disabled={isSearching}
+                        >
+                            {isSearching ? 'Buscando...' : 'Buscar'}
+                        </button>
                     </form>
                 ) : (
                     <div className="selected-book-card">
@@ -142,7 +162,6 @@ const HomeView = () => {
                     </div>
                 )}
 
-                {/* Resultados de búsqueda con imagen incluida */}
                 {resultados.length > 0 && !libroSeleccionado && (
                     <div className="search-results-mini">
                         {resultados.map(libro => (
@@ -171,7 +190,6 @@ const HomeView = () => {
                 )}
             </section>
 
-            {/* Muro de publicaciones */}
             <div className="feed-container">
                 {publicaciones.map(pub => (
                     <article key={pub.id} className="post-card">
@@ -191,7 +209,6 @@ const HomeView = () => {
                             </div>
                         </div>
 
-                        {/* Botón de Reacción (Like) */}
                         <div className="post-actions" style={{ display: 'flex', gap: '15px', padding: '10px 0', borderTop: '1px solid #edf2f7', marginTop: '15px' }}>
                             <button 
                                 onClick={() => handleReaccionar(pub.id)}
@@ -207,32 +224,73 @@ const HomeView = () => {
                             </button>
                         </div>
 
+                        {/* --- BLOQUE DE COMENTARIOS ACTUALIZADO --- */}
                         <div className="comments-container">
                             <h4>Comentarios ({pub.comentarios?.length || 0})</h4>
-                            {pub.comentarios?.map(com => (
-                                <div key={com.id} className="comment-bubble">
-                                    <strong className="comment-user">{com.usuario?.nombre || 'Usuario'}:</strong> 
-                                    {com.texto}
-                                </div>
-                            ))}
+                            
+                            {(() => {
+                                const comentarios = pub.comentarios || [];
+                                const estaExpandido = comentariosExpandidos[pub.id];
+                                const comentariosAMostrar = estaExpandido ? comentarios : comentarios.slice(-2);
+                                const hayMasComentarios = comentarios.length > 2;
 
-                            <div className="comment-form">
-                                <input 
-                                    type="text" 
-                                    placeholder="Escribe un comentario..."
-                                    className="profile-input comment-input"
-                                    value={comentarioTexto[pub.id] || ''}
-                                    onChange={(e) => setComentarioTexto({
-                                        ...comentarioTexto,
-                                        [pub.id]: e.target.value
-                                    })}
-                                />
-                                <button 
-                                    onClick={() => handleComentar(pub.id)}
-                                    className="btn-primary btn-small"
-                                >
-                                    Enviar
-                                </button>
+                                return (
+                                    <>
+                                        {hayMasComentarios && (
+                                            <button 
+                                                onClick={() => toggleComentarios(pub.id)}
+                                                style={{ 
+                                                    background: 'none', border: 'none', color: '#3498db', 
+                                                    fontSize: '0.85rem', cursor: 'pointer', marginBottom: '10px', 
+                                                    padding: 0, fontWeight: '500' 
+                                                }}
+                                            >
+                                                {estaExpandido ? 'Ocultar comentarios anteriores' : `Ver los ${comentarios.length - 2} comentarios anteriores`}
+                                            </button>
+                                        )}
+
+                                        {comentariosAMostrar.map(com => (
+                                            <div key={com.id} className="comment-bubble">
+                                                <strong className="comment-user">{com.usuario?.nombre || 'Usuario'}:</strong> 
+                                                {com.texto}
+                                            </div>
+                                        ))}
+                                    </>
+                                );
+                            })()}
+
+                            <div className="comment-form" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px', marginTop: '12px' }}>
+                                <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Escribe un comentario..."
+                                        className="profile-input comment-input"
+                                        value={comentarioTexto[pub.id] || ''}
+                                        onChange={(e) => {
+                                            const nuevoTexto = e.target.value;
+                                            const caracteresSinEspacio = nuevoTexto.replace(/\s/g, '').length;
+                                            if (caracteresSinEspacio <= 255) {
+                                                setComentarioTexto({
+                                                    ...comentarioTexto,
+                                                    [pub.id]: nuevoTexto
+                                                });
+                                            }
+                                        }}
+                                    />
+                                    <button 
+                                        onClick={() => handleComentar(pub.id)}
+                                        className="btn-primary btn-small"
+                                    >
+                                        Enviar
+                                    </button>
+                                </div>
+                                <span style={{ 
+                                    fontSize: '0.8rem', 
+                                    color: (255 - (comentarioTexto[pub.id] || '').replace(/\s/g, '').length) === 0 ? '#e53e3e' : '#718096',
+                                    fontWeight: (255 - (comentarioTexto[pub.id] || '').replace(/\s/g, '').length) <= 20 ? 'bold' : '500'
+                                }}>
+                                    {255 - (comentarioTexto[pub.id] || '').replace(/\s/g, '').length} disponibles
+                                </span>
                             </div>
                         </div>
                     </article>

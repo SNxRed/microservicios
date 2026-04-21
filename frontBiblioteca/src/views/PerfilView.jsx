@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
 import '../styles/Layout.css';
 import '../styles/Perfil.css';
-import '../styles/Home.css'; // Reutilizamos estilos del muro para las publicaciones
+import '../styles/Home.css'; 
 
 const PerfilView = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -13,8 +13,11 @@ const PerfilView = () => {
         password: '' 
     });
     const [favorites, setFavorites] = useState([]);
-    const [misPublicaciones, setMisPublicaciones] = useState([]); // Estado para las publicaciones
+    const [misPublicaciones, setMisPublicaciones] = useState([]); 
     const [mensaje, setMensaje] = useState({ texto: '', tipo: '' });
+    
+    // NUEVO ESTADO: Controla qué publicaciones en el perfil tienen los comentarios expandidos
+    const [comentariosExpandidos, setComentariosExpandidos] = useState({});
 
     useEffect(() => {
         cargarDatosPerfil();
@@ -22,11 +25,9 @@ const PerfilView = () => {
 
     const cargarDatosPerfil = async () => {
         try {
-            // Cargar Favoritos
             const favRes = await api.get(`/favoritos/usuario/${user.id}`);
             setFavorites(favRes.data);
 
-            // Cargar Publicaciones del Usuario
             const pubRes = await api.get(`/publicaciones/usuario/${user.id}`);
             setMisPublicaciones(pubRes.data);
         } catch (error) {
@@ -57,6 +58,14 @@ const PerfilView = () => {
         }
     };
 
+    // NUEVA FUNCIÓN: Alterna el estado de expansión de los comentarios
+    const toggleComentarios = (publicacionId) => {
+        setComentariosExpandidos(prev => ({
+            ...prev,
+            [publicacionId]: !prev[publicacionId]
+        }));
+    };
+
     return (
         <div className="home-container">
             <header className="home-header">
@@ -71,7 +80,6 @@ const PerfilView = () => {
             )}
 
             <div className="profile-layout">
-                {/* Columna Izquierda: Datos del Usuario */}
                 <aside className="profile-sidebar">
                     <div className="profile-card">
                         <div className="profile-card-header">
@@ -124,7 +132,6 @@ const PerfilView = () => {
                     </div>
                 </aside>
 
-                {/* Columna Derecha: Favoritos y Publicaciones */}
                 <main className="profile-main">
                     <section className="favorites-section">
                         <h2 className="favorites-title">Libros Favoritos ({favorites.length})</h2>
@@ -148,7 +155,6 @@ const PerfilView = () => {
                         )}
                     </section>
 
-                    {/* Nueva Sección: Mis Publicaciones */}
                     <section className="my-posts-section" style={{marginTop: '40px'}}>
                         <h2 className="favorites-title">Mis Publicaciones ({misPublicaciones.length})</h2>
                         <div className="feed-container">
@@ -163,14 +169,41 @@ const PerfilView = () => {
                                             </div>
                                         </div>
 
+                                        {/* --- SECCIÓN DE COMENTARIOS ACTUALIZADA --- */}
                                         <div className="comments-container">
                                             <h4>Comentarios ({pub.comentarios?.length || 0})</h4>
-                                            {pub.comentarios?.map(com => (
-                                                <div key={com.id} className="comment-bubble">
-                                                    <strong className="comment-user">{com.usuario?.nombre || 'Usuario'}:</strong> 
-                                                    {com.texto}
-                                                </div>
-                                            ))}
+                                            
+                                            {(() => {
+                                                const comentarios = pub.comentarios || [];
+                                                const estaExpandido = comentariosExpandidos[pub.id];
+                                                // Si está expandido mostramos todos, sino, cortamos para mostrar solo los 2 últimos
+                                                const comentariosAMostrar = estaExpandido ? comentarios : comentarios.slice(-2);
+                                                const hayMasComentarios = comentarios.length > 2;
+
+                                                return (
+                                                    <>
+                                                        {hayMasComentarios && (
+                                                            <button 
+                                                                onClick={() => toggleComentarios(pub.id)}
+                                                                style={{ 
+                                                                    background: 'none', border: 'none', color: '#3498db', 
+                                                                    fontSize: '0.85rem', cursor: 'pointer', marginBottom: '10px', 
+                                                                    padding: 0, fontWeight: '500' 
+                                                                }}
+                                                            >
+                                                                {estaExpandido ? 'Ocultar comentarios anteriores' : `Ver los ${comentarios.length - 2} comentarios anteriores`}
+                                                            </button>
+                                                        )}
+
+                                                        {comentariosAMostrar.map(com => (
+                                                            <div key={com.id} className="comment-bubble">
+                                                                <strong className="comment-user">{com.usuario?.nombre || 'Usuario'}:</strong> 
+                                                                {com.texto}
+                                                            </div>
+                                                        ))}
+                                                    </>
+                                                );
+                                            })()}
                                         </div>
                                     </article>
                                 ))

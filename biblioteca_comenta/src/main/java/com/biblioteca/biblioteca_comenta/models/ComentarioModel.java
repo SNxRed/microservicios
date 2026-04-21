@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "comentarios_publicacion")
@@ -20,7 +21,8 @@ public class ComentarioModel {
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
     private UsuarioModel usuario; 
-
+    
+    @Column(length = 500, nullable = false) // limite de caracteres para la base de datos
     private String texto;
 
     @ManyToOne
@@ -29,35 +31,35 @@ public class ComentarioModel {
     private PublicacionModel publicacion;
 
     // Getters y Setters actualizados
-    public Long getId() {
+    public Long getId(){
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id){
         this.id = id;
     }
 
-    public UsuarioModel getUsuario() {
+    public UsuarioModel getUsuario(){
         return usuario;
     }
 
-    public void setUsuario(UsuarioModel usuario) {
+    public void setUsuario(UsuarioModel usuario){
         this.usuario = usuario;
     }
 
-    public String getTexto() {
+    public String getTexto(){
         return texto;
     }
 
-    public void setTexto(String texto) {
+    public void setTexto(String texto){
         this.texto = texto;
     }
 
-    public PublicacionModel getPublicacion() {
+    public PublicacionModel getPublicacion(){
         return publicacion;
     }
 
-    public void setPublicacion(PublicacionModel publicacion) {
+    public void setPublicacion(PublicacionModel publicacion){
         this.publicacion = publicacion;
     }
 }

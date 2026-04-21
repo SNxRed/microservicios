@@ -1477,3 +1477,177 @@ Caused by: org.h2.mvstore.MVStoreException: File is corrupted - unable to recove
 	at org.h2.mvstore.db.Store.<init>(Store.java:133)
 	... 63 more
 2026-04-20 18:50:35.420093Z database: close
+2026-04-21 14:33:44.087392Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (524)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:33:44.941254Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (524)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:33:45.439956Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (524)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:33:45.607314Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (524)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:33:48.905820Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (524)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:33:49.384339Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (524)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:33:52.893487Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (519)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:33:55.417008Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (510)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:33:55.978941Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (510)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:33:57.900996Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (505)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:00.331447Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (499)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:01.092819Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (499)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:02.988337Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (495)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:03.394366Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (495)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:05.329540Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (485)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:05.496047Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (485)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:07.292407Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (482)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:07.648713Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (482)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:08.642742Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (479)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:09.229791Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (479)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:10.950249Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (471)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:11.573570Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. Escribir no es... (471)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:14.243386Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (462)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:14.689857Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (462)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:16.833657Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (457)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:18.445695Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (449)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:18.612597Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (449)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:20.129159Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (445)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:22.587794Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (438)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:25.892283Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (421)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:26.802515Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (421)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:28.980873Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (415)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:29.507266Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (415)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:31.381209Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (406)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 14:34:31.851079Z jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(255)": "U&'La creatividad florece cuando aceptamos retos espec\\00edficos. no es solo sol... (406)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:10:24.339992Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dune es una obra maestra de la ciencia ficci\\00f3n que trasciende el tiempo. ... (599)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:10:24.965557Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dune es una obra maestra de la ciencia ficci\\00f3n que trasciende el tiempo. ... (599)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:10:45.587011Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dune es una obra maestra de la ciencia ficci\\00f3n que trasciende el tiempo. ... (519)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:10:46.094529Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dune es una obra maestra de la ciencia ficci\\00f3n que trasciende el tiempo. ... (519)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:06.391757Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dune es una obra maestra de la ciencia ficci\\00f3n que trasciende el tiempo. ... (518)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:10.036222Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestra de la ciencia ficci\\00f3n que trasciende el tiempo. F... (517)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:13.873901Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (516)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:15.227366Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (515)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:16.526780Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (514)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:17.919244Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (513)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:19.305828Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (512)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:20.710140Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (511)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:22.548635Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (510)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:23.877121Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (509)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:25.265272Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (508)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:26.457717Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (507)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:28.037085Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (506)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:29.228974Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (505)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:30.675777Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (504)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:32.631971Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (503)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:33.697650Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (502)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:34.054243Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (502)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
+2026-04-21 16:11:35.022981Z jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "TEXTO CHARACTER VARYING(500)": "U&'Dun es una obra maestrade la ciencia ficci\\00f3n que trasciende el tiempo. Fr... (501)"; SQL statement:
+insert into comentarios_publicacion (publicacion_id,texto,usuario_id,id) values (?,?,?,default) [22001-240]
